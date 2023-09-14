@@ -3,71 +3,98 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sekilinc <sekilinc@student.42kocaeli.co    +#+  +:+       +#+        */
+/*   By: mumutlu <mumutlu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/22 12:03:38 by sekilinc          #+#    #+#             */
-/*   Updated: 2023/03/22 12:03:39 by sekilinc         ###   ########.fr       */
+/*   Created: 2023/09/03 16:16:46 by mumutlu           #+#    #+#             */
+/*   Updated: 2023/09/04 15:57:14 by mumutlu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_strsay(char const *str, char c)
+static char	**ft_malloc_error(char **tab)
 {
-	int	str_say;
+	size_t	i;
 
-	str_say = 0;
-	while (*str)
+	i = 0;
+	while (tab[i])
 	{
-		if (*str == c)
-			str++;
-		else
-		{
-			str_say++;
-			while (*str && *str != c)
-				str++;
-		}
+		free(tab[i]);
+		i++;
 	}
-	return (str_say);
+	free(tab);
+	return (NULL);
 }
 
-static char	**ft_place(char **new, char const *s, char c, int top_str)
+static size_t	ft_nb_words(char const *s, char c)
 {
-	int	index;
-	int	str_len;
-	int	str_say;
+	size_t	i;
+	size_t	nb_words;
 
-	str_len = 0;
-	index = 0;
-	str_say = 0;
-	while (str_say < top_str)
+	if (!s[0])
+		return (0);
+	i = 0;
+	nb_words = 0;
+	while (s[i] && s[i] == c)
+		i++;
+	while (s[i])
 	{
-		while (s[index] && s[index] == c)
-			index++;
-		str_len = 0;
-		while (s[index] && s[index] != c)
+		if (s[i] == c)
 		{
-			str_len++;
-			index++;
+			nb_words++;
+			while (s[i] && s[i] == c)
+				i++;
+			continue ;
 		}
-		new[str_say] = ft_substr(s, index - str_len, str_len);
-		str_say++;
+		i++;
 	}
-	new[str_say] = 0;
-	return (new);
+	if (s[i - 1] != c)
+		nb_words++;
+	return (nb_words);
 }
 
-char	**ft_split(const char *s, char c)
+static void	ft_get_next_word(char **next_word, size_t *next_word_len, char c)
 {
-	char	**new;
-	int		top_str;
+	size_t	i;
+
+	*next_word += *next_word_len;
+	*next_word_len = 0;
+	i = 0;
+	while (**next_word && **next_word == c)
+		(*next_word)++;
+	while ((*next_word)[i])
+	{
+		if ((*next_word)[i] == c)
+			return ;
+		(*next_word_len)++;
+		i++;
+	}
+}
+
+char	**ft_split(char const *s, char c)
+{
+	char	**tab;
+	char	*next_word;
+	size_t	next_word_len;
+	size_t	i;
 
 	if (!s)
-		return (0);
-	top_str = ft_strsay(s, c);
-	new = (char **)malloc(sizeof(char *) * top_str + 1);
-	if (!new)
-		return (0);
-	ft_place(new, s, c, top_str);
-	return (new);
+		return (NULL);
+	tab = (char **)malloc(sizeof(char *) * (ft_nb_words(s, c) + 1));
+	if (!tab)
+		return (NULL);
+	i = 0;
+	next_word = (char *)s;
+	next_word_len = 0;
+	while (i < ft_nb_words(s, c))
+	{
+		ft_get_next_word(&next_word, &next_word_len, c);
+		tab[i] = (char *)malloc(sizeof(char) * (next_word_len + 1));
+		if (!tab[i])
+			return (ft_malloc_error(tab));
+		ft_strlcpy(tab[i], next_word, next_word_len + 1);
+		i++;
+	}
+	tab[i] = NULL;
+	return (tab);
 }

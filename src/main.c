@@ -3,22 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sekilinc <sekilinc@student.42kocaeli.co    +#+  +:+       +#+        */
+/*   By: mumutlu <mumutlu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/22 12:06:19 by sekilinc          #+#    #+#             */
-/*   Updated: 2023/03/22 12:06:20 by sekilinc         ###   ########.fr       */
+/*   Created: 2023/09/14 18:07:35 by mumutlu           #+#    #+#             */
+/*   Updated: 2023/09/14 18:07:37 by mumutlu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	main(int argc, char **argv)
+int	main(int ac, char **av)
 {
-	t_data	data;
-
-	if (argc != 2)
-		err_msg("Error : Argument 2 required");
-	map_control(argv, &data);
-	size_control(&data);
-	mlx_create(&data);
+	if (ac == 2)
+		start_game(av[1]);
+	return (0);
 }

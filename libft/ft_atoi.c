@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sekilinc <sekilinc@student.42kocaeli.co    +#+  +:+       +#+        */
+/*   By: mumutlu <mumutlu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/22 12:00:40 by sekilinc          #+#    #+#             */
-/*   Updated: 2023/03/22 12:00:41 by sekilinc         ###   ########.fr       */
+/*   Created: 2023/09/03 16:13:28 by mumutlu           #+#    #+#             */
+/*   Updated: 2023/09/03 16:13:29 by mumutlu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,26 @@
 
 int	ft_atoi(const char *str)
 {
-	long	result;
-	int		n;
+	int	sign;
+	int	result;
 
-	n = 1;
+	sign = 1;
 	result = 0;
-	while ((*str >= 9 && *str <= 13) || (*str == 32))
+	while (*str == 32 || (*str >= 9 && *str <= 13))
+		str++;
+	if (*str == '-')
+	{
+		sign *= -1;
+		str++;
+	}
+	else if (*str == '+')
 		str++;
 	if (*str == '-' || *str == '+')
+		return (0);
+	while (ft_isdigit(*str) == 1)
 	{
-		if (*str == '-')
-			n = -1;
-		str++;
-		if (*str == '-' || *str == '+')
-			return (0);
-	}
-	while (*str != 0 && *str >= '0' && *str <= '9')
-	{
-		result = result * 10 + (*str - '0') * n;
-		if (result > 2147483647)
-			return (-1);
-		if (result < -2147483648)
-			return (0);
+		result = (result * 10) + (*str - '0');
 		str++;
 	}
-	return (result);
+	return (result * sign);
 }
