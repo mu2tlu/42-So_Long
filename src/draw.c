@@ -6,11 +6,12 @@
 /*   By: mumutlu <mumutlu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:07:10 by mumutlu           #+#    #+#             */
-/*   Updated: 2023/09/14 18:07:11 by mumutlu          ###   ########.fr       */
+/*   Updated: 2023/09/16 18:06:57 by mumutlu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../mlx/mlx.h"
+#include "../libs/mlx/mlx.h"
+#include "../libs/so_long.h"
 
 static void	render_map(t_game game)
 {

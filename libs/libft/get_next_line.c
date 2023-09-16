@@ -13,6 +13,11 @@
 #include "libft.h"
 #include <unistd.h>
 
+char	*gnl_strdup(const char *s);
+char	*gnl_strjoin(char const *s1, char const *s2);
+char	*gnl_substr(char const *s, unsigned int start, size_t len);
+void	*ft_free_stash(char **stash, int create_line);
+
 static char	*ft_copy_to_stash(char *stash, char *buf)
 {
 	char	*res;
@@ -20,12 +25,12 @@ static char	*ft_copy_to_stash(char *stash, char *buf)
 	res = 0;
 	if (!stash && buf)
 	{
-		res = ft_strdup(buf);
+		res = gnl_strdup(buf);
 		if (!res)
 			return (NULL);
 		return (res);
 	}
-	res = ft_strjoin(stash, buf);
+	res = gnl_strjoin(stash, buf);
 	ft_free_stash(&stash, 0);
 	return (res);
 }
@@ -79,7 +84,7 @@ static char	*ft_recreate_stash(char *stash)
 		i++;
 	if (stash[i + 1] == '\0')
 		return (ft_free_stash(&stash, 0));
-	res = ft_substr(stash, i + 1, ft_strlen(stash));
+	res = gnl_substr(stash, i + 1, ft_strlen(stash));
 	if (!res)
 	{
 		ft_free_stash(&stash, 0);

@@ -1,15 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   deneme.c                                           :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mumutlu <mumutlu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:08:17 by mumutlu           #+#    #+#             */
-/*   Updated: 2023/09/14 18:08:20 by mumutlu          ###   ########.fr       */
+/*   Updated: 2023/09/16 17:23:53 by mumutlu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../libs/libft/libft.h"
 #include <stdlib.h> /*
 #   void free(void *);
 */
@@ -44,9 +45,9 @@ int	ft_matrixlen(char **matrix)
 
 char	**ft_matrixdup(char **matrix)
 {
-	int     x;
-	int     y;
-	char    **result;
+	int		x;
+	int		y;
+	char	**result;
 
 	y = 0;
 	while (matrix[y])
@@ -67,5 +68,6 @@ char	**ft_matrixdup(char **matrix)
 			result[y][x] = matrix[y][x];
 		result[y][x] = 0;
 	}
+	result[y] = (void *)0;
 	return (result);
 }

@@ -12,7 +12,7 @@
 
 #include "so_long.h"
 
-int	is_ret(t_game *sl)
+int	is_ret(t_game sl)
 {
 	char	**map;
 	int		i;
@@ -21,7 +21,7 @@ int	is_ret(t_game *sl)
 	map = sl->map;
 	i = 1;
 	len = ft_strlen(map[0]);
-	while (i < sl->map_height)
+	while (sl->map[i])
 	{
 		if (len != ft_strlen(map[i]))
 			return (1);
@@ -55,7 +55,7 @@ int	is_wall(char **map, int x, int y)
 	return (0);
 }
 
-int	is_pec(t_game *sl)
+int	is_pec(t_game sl)
 {
 	int	i;
 	int	j;
@@ -81,7 +81,7 @@ int	is_pec(t_game *sl)
 	return (0);
 }
 
-int	is_chr(t_game *sl)
+int	is_chr(t_game sl)
 {
 	int	i;
 	int	j;
@@ -108,7 +108,7 @@ int	is_chr(t_game *sl)
 	return (0);
 }
 
-int	map_validation(t_game *sl)
+int	map_validation(t_game sl)
 {
 	if (is_ret(sl))
 		return (1);

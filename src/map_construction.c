@@ -1,42 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_constraction.c                                 :+:      :+:    :+:   */
+/*   map_construction.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mumutlu <mumutlu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:07:42 by mumutlu           #+#    #+#             */
-/*   Updated: 2023/09/14 18:07:43 by mumutlu          ###   ########.fr       */
+/*   Updated: 2023/09/16 18:07:36 by mumutlu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "../libs/so_long.h"
+#include "../libs/libft/libft.h"
 #include <stdlib.h>
 
-char	**map_constractor(t_game game, int fd)
+char	**map_constructor(int fd)
 {
-	char	**result;
-	char	*buffer;
+	char	*line;
 	char	*temp;
-	char	*temp2;
+	char	*map_out;
+	char	**result;
 
-	buffer = get_next_line(fd);
-	temp2 = (void *)0;
-	temp = (void *)0;
-	while(ft_strlen(buffer))
+	temp = get_next_line(fd);
+	line = malloc(2 * sizeof(char));
+	while (!!temp)
 	{
-		if (!!temp2)
-			temp = ft_strdup(temp2);
-		if (!!temp2)
-			free(temp2);
-		temp2 = strjoin(temp, buffer);
+		map_out = ft_strjoin(line, temp);
+		if (line)
+			free(line);
 		free(temp);
-		free(buffer);
-		buffer = get_next_line(fd);
+		temp = get_next_line(fd);
+		if (map_out)
+			line = ft_strdup(map_out);
+		free(map_out);
+		map_out = (void *)0;
 	}
-	if (buffer)
-		free(buffer);
-	result = ft_split(temp, '\n');
-	free(temp2);
+	free(temp);
+	temp = (void *)0;
+	result = ft_split(line, '\n');
+	free(line);
 	return (result);
 }

@@ -6,7 +6,7 @@
 /*   By: mumutlu <mumutlu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:05:57 by mumutlu           #+#    #+#             */
-/*   Updated: 2023/09/14 18:05:58 by mumutlu          ###   ########.fr       */
+/*   Updated: 2023/09/16 17:21:35 by mumutlu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include <stdlib.h>
 
 # define PIXEL 64
+
+#include <stdio.h>
 
 typedef struct s_game
 {
@@ -48,11 +50,14 @@ int					game_exit(t_game game);
 
 int					render(t_game game);
 
-char				**map_constractor(t_game game, int fd);
+char				**map_constructor(int fd);
 int					map_validation(t_game sl);
 int					flood_fill(t_game game);
 
 char				*ft_itoa(int n);
 void				free_map(char **map);
+void				ft_freematrix(char **matrix);
+char				**ft_matrixdup(char **matrix);
+int					ft_matrixlen(char **matrix);
 
 #endif

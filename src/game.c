@@ -6,12 +6,13 @@
 /*   By: mumutlu <mumutlu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:07:19 by mumutlu           #+#    #+#             */
-/*   Updated: 2023/09/14 18:07:20 by mumutlu          ###   ########.fr       */
+/*   Updated: 2023/09/16 18:08:14 by mumutlu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
-#include "../mlx/mlx.h"
+#include "../libs/so_long.h"
+#include "../libs/mlx/mlx.h"
+#include "../libs/libft/libft.h"
 #include <stdlib.h>
 #include <unistd.h>
 #include <fcntl.h>
@@ -47,7 +48,7 @@ static int	filename_check(char *str)
 	return (1);
 }
 
-static void game_init(t_game game)
+static void	game_init(t_game game)
 {
 	game->coins = 0;
 	game->exit = 0;
@@ -64,7 +65,7 @@ void	start_game(char *map_name)
 		return ;
 	game_init(&game);
 	fd = open(map_name, O_RDONLY);
-	game.map = map_constractor(&game, fd);
+	game.map = map_constructor(fd);
 	close(fd);
 	if (map_validation(&game))
 	{
@@ -73,8 +74,8 @@ void	start_game(char *map_name)
 		exit(1);
 	}
 	game.mlx = mlx_init();
-	game.mlx_win = mlx_new_window(game.mlx, fr_strlen(game.map[0]) * PIXEL,
-			fr_matrixlen(game.map) * PIXEL, "so_long");
+	game.mlx_win = mlx_new_window(game.mlx, ft_strlen(game.map[0]) * PIXEL,
+			ft_matrixlen(game.map) * PIXEL, "so_long");
 	load_sprite(&game);
 	mlx_hook(game.mlx_win, 2, 1L << 0, key_down, &game);
 	mlx_hook(game.mlx_win, 17, 0L << 0, game_exit, &game);
