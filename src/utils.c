@@ -6,18 +6,16 @@
 /*   By: mumutlu <mumutlu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:08:17 by mumutlu           #+#    #+#             */
-/*   Updated: 2023/09/16 17:23:53 by mumutlu          ###   ########.fr       */
+/*   Updated: 2023/09/17 16:43:12 by mumutlu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libs/libft/libft.h"
-#include <stdlib.h> /*
-#   void free(void *);
-*/
+#include <stdlib.h>
 
 void	ft_freematrix(char **matrix)
 {
-	int x;
+	int	x;
 
 	x = -1;
 	while (++x, matrix[x])
@@ -31,17 +29,13 @@ void	ft_freematrix(char **matrix)
 
 int	ft_matrixlen(char **matrix)
 {
-	int ecx;
+	int	ecx;
 
 	ecx = 0;
 	while (matrix[ecx])
 		++ecx;
 	return (ecx);
 }
-
-#include <stdlib.h> /*
-#   void *malloc(int);
-*/
 
 char	**ft_matrixdup(char **matrix)
 {

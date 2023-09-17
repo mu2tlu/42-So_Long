@@ -6,7 +6,7 @@
 /*   By: mumutlu <mumutlu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:07:19 by mumutlu           #+#    #+#             */
-/*   Updated: 2023/09/16 18:08:14 by mumutlu          ###   ########.fr       */
+/*   Updated: 2023/09/17 16:40:17 by mumutlu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	start_game(char *map_name)
 	if (map_validation(&game))
 	{
 		write(1, "ERROR\n", 6);
-		free_map(game.map);
+		ft_freematrix(game.map);
 		exit(1);
 	}
 	game.mlx = mlx_init();

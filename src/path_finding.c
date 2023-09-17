@@ -6,25 +6,12 @@
 /*   By: mumutlu <mumutlu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:08:00 by mumutlu           #+#    #+#             */
-/*   Updated: 2023/09/16 18:07:12 by mumutlu          ###   ########.fr       */
+/*   Updated: 2023/09/17 16:42:37 by mumutlu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libs/so_long.h"
 #include <stdlib.h>
-
-void	free_map(char **map)
-{
-	size_t	i;
-
-	i = 0;
-	while (map[i])
-	{
-		free(map[i]);
-		i++;
-	}
-	free(map);
-}
 
 char
 	check_objects(char **map)
@@ -63,7 +50,7 @@ static void	check_path(char **map, size_t y, size_t x)
 int	flood_fill(t_game game)
 {
 	char	**map;
-	int				i;
+	int		i;
 
 	map = ft_matrixdup(game->map);
 	if (!map)
@@ -72,9 +59,9 @@ int	flood_fill(t_game game)
 	check_path(map, game->player_y, game->player_x);
 	if (check_objects(map))
 	{
-		free_map(map);
+		ft_freematrix(map);
 		return (1);
 	}
-	free_map(map);
+	ft_freematrix(map);
 	return (0);
 }
