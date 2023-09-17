@@ -70,7 +70,6 @@ int	game_exit(t_game game)
 	mlx_destroy_image(game->mlx, game->wall_sprite);
 	mlx_destroy_image(game->mlx, game->floor_sprite);
 	mlx_destroy_window(game->mlx, game->mlx_win);
-	free(game);
 	exit(0);
 }
 

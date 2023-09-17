@@ -20,7 +20,7 @@ void	ft_freematrix(char **matrix)
 	int x;
 
 	x = -1;
-	while (matrix[x])
+	while (++x, matrix[x])
 	{
 		free(matrix[x]);
 		matrix[x] = (void *)0;
