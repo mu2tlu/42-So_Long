@@ -6,12 +6,12 @@
 /*   By: mumutlu <mumutlu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:07:53 by mumutlu           #+#    #+#             */
-/*   Updated: 2023/09/16 18:07:06 by mumutlu          ###   ########.fr       */
+/*   Updated: 2023/09/19 16:13:13 by mumutlu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libs/so_long.h"
-#include "../libs/libft/libft.h"
+#include "so_long.h"
+#include "libft.h"
 
 int	is_ret(t_game sl)
 {

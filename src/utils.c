@@ -6,11 +6,11 @@
 /*   By: mumutlu <mumutlu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:08:17 by mumutlu           #+#    #+#             */
-/*   Updated: 2023/09/17 16:43:12 by mumutlu          ###   ########.fr       */
+/*   Updated: 2023/09/19 16:13:30 by mumutlu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libs/libft/libft.h"
+#include "libft.h"
 #include <stdlib.h>
 
 void	ft_freematrix(char **matrix)
