@@ -1,7 +1,8 @@
 CC			=	cc
 
 LIBS		=	libs
-INCS		=	-I incs -I $(LIBS)/libft -I $(LIBS)/mlx
+INCS		=	-I incs -I $(LIBS)/libft -I $(LIBS)/mlx 
+LIBR		=	-L $(LIBS)/libft -l ft -L $(LIBS)/mlx -l mlx -framework OpenGL -framework AppKit
 
 
 SRCDIR		=	src
@@ -26,26 +27,31 @@ BONUS_SRC	=	$(B_SRCDIR)/draw_bonus.c \
 NAME		=	so_long
 bonus		=	so_long_bonus
 CFLAGS		=	-Wall -Wextra -Werror $(INCS)
-OBJ			= 	$(SRC:.o=.c)
-B_OBJ		= 	$(BONUS_SRC:.o=.c)
+OBJ			= 	$(SRC:.c=.o)
+B_OBJ		= 	$(BONUS_SRC:.c=.o)
 
-all: $(NAME) #$(BONUS_NAME)
+all: depend $(NAME) #$(BONUS_NAME) 
 
-$(NAME):
-	$(CC) $(CFLAGS) $(OBJ) -o $(NAME) -L $(LIBS)/libft -l ft -L $(LIBS)/mlx -l mlx
+$(NAME): $(OBJ)
+	$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(LIBR)
 
-bonus:
-	$(CC) $(CFLAGS) $(B_OBJ) -o $(bonus) -L $(LIBS)/libft -l ft -L $(LIBS)/mlx -l mlx
+bonus: $(B_OBJ)
+	$(CC) $(CFLAGS) $(B_OBJ) -o $(bonus) $(LIBR)
+
+depend:		
+	make -C $(LIBS)/libft	&> /dev/null
+	make -C $(LIBS)/mlx		&> /dev/null
 
 clean:
+	make -C $(LIBS)/mlx clean
+	make -C $(LIBS)/libft clean
 	rm -f $(OBJ) #$(B_OBJ)
 
 fclean: clean
-	make -C $(LIBS)/mlx clean
 	#rm -f $(NAME) $(BONUS_NAME)
 
 re: fclean all
-
+	
 norminette:
 	norminette
 
