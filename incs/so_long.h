@@ -6,7 +6,7 @@
 /*   By: mumutlu <mumutlu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:05:57 by mumutlu           #+#    #+#             */
-/*   Updated: 2023/09/17 16:39:32 by mumutlu          ###   ########.fr       */
+/*   Updated: 2023/09/20 18:25:19 by mumutlu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 # include <stdlib.h>
 
 # define PIXEL 64
-
-#include <stdio.h>
 
 typedef struct s_game
 {
