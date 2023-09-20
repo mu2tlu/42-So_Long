@@ -26,18 +26,22 @@ BONUS_SRC	=	$(B_SRCDIR)/draw_bonus.c \
 				$(B_SRCDIR)/utils_bonus.c
 
 NAME		=	so_long
-BONUS_NAME	=	so_long_bonus
+BONUN_NAME	=	so_long_bonus
 CFLAGS		=	-Wall -Wextra -Werror $(INCS)
 OBJ			= 	$(SRC:.c=.o)
 B_OBJ		= 	$(BONUS_SRC:.c=.o)
 
-all: depend $(NAME) bonus
+
+
+all: depend $(NAME) $(BONUN_NAME)
 
 $(NAME): $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(LIBR)
 
-bonus: $(B_OBJ)
-	$(CC) $(CFLAGS) $(B_OBJ) -o $(BONUS_NAME) $(LIBR)
+$(BONUN_NAME): $(B_OBJ)
+	$(CC) $(CFLAGS) $(B_OBJ) -o $(BONUN_NAME) $(LIBR)
+
+bonus: depend $(BONUN_NAME)
 
 depend:		
 	make -C $(LIBS)/libft	&> /dev/null
@@ -51,9 +55,9 @@ clean:
 
 fclean: clean
 	rm -f $(NAME) 
-	rm -f $(BONUS_NAME)
+	rm -f $(BONUN_NAME)
 
-re: fclean all
+re: fclean
 	
 norminette:
 	norminette
