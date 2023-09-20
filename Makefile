@@ -41,8 +41,6 @@ $(NAME): $(OBJ)
 bonus : $(B_OBJ) depend
 	$(CC) $(CFLAGS) $(B_OBJ) -o $(BONUS_NAME) $(LIBR)
 
-#bonus: depend $(BONUN_NAME)
-
 depend:		
 	make -C $(LIBS)/libft	&> /dev/null
 	make -C $(LIBS)/mlx		&> /dev/null
@@ -55,7 +53,7 @@ clean:
 
 fclean: clean
 	rm -f $(NAME) 
-	rm -f $(bonus)
+	rm -f $(BONUS_NAME)
 
 re: fclean
 	
