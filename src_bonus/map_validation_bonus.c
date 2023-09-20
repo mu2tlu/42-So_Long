@@ -1,16 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_validation_bonus.c                             :+:      :+:    :+:   */
+/*   map_validation.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mumutlu <mumutlu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/14 18:10:00 by mumutlu           #+#    #+#             */
-/*   Updated: 2023/09/14 18:10:01 by mumutlu          ###   ########.fr       */
+/*   Created: 2023/09/14 18:07:53 by mumutlu           #+#    #+#             */
+/*   Updated: 2023/09/19 16:13:13 by mumutlu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+#include "libft.h"
 
 int	is_ret(t_game sl)
 {
@@ -23,11 +24,10 @@ int	is_ret(t_game sl)
 	len = ft_strlen(map[0]);
 	while (sl->map[i])
 	{
-		if (len != ft_strlen(map[i]))
+		if (len != (int)ft_strlen(map[i]))
 			return (1);
 		i++;
 	}
-	sl->map_width = len;
 	return (0);
 }
 
@@ -61,10 +61,10 @@ int	is_pec(t_game sl)
 	int	j;
 
 	i = 0;
-	while (i < sl->map_height)
+	while (sl->map[i])
 	{
 		j = 0;
-		while (j < sl->map_width)
+		while (sl->map[i][j])
 		{
 			if (sl->map[i][j] == 'P')
 				sl->ply++;
@@ -87,10 +87,10 @@ int	is_chr(t_game sl)
 	int	j;
 
 	i = 0;
-	while (i < sl->map_height)
+	while (sl->map[i])
 	{
 		j = 0;
-		while (j < sl->map_width)
+		while (sl->map[i][j])
 		{
 			if (sl->map[i][j] != 'P' && sl->map[i][j] != 'E'
 				&& sl->map[i][j] != 'C'
@@ -116,7 +116,7 @@ int	map_validation(t_game sl)
 		return (1);
 	if (is_chr(sl))
 		return (1);
-	if (is_wall(sl->map, sl->map_width, sl->map_height))
+	if (is_wall(sl->map, ft_strlen(sl->map[0]), ft_matrixlen(sl->map)))
 		return (1);
 	if (flood_fill(sl))
 		return (1);

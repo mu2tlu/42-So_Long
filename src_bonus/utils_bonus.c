@@ -1,32 +1,67 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_bonus.c                                      :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mumutlu <mumutlu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/14 18:10:10 by mumutlu           #+#    #+#             */
-/*   Updated: 2023/09/14 18:10:11 by mumutlu          ###   ########.fr       */
+/*   Created: 2023/09/14 18:08:17 by mumutlu           #+#    #+#             */
+/*   Updated: 2023/09/19 16:13:30 by mumutlu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "libft.h"
+#include <stdlib.h>
 
-void	ft_reset(char *buffer)
+void	ft_freematrix(char **matrix)
 {
-	int	i;
+	int	x;
 
-	i = 0;
-	while (i < 10000)
-		buffer[i++] = 0;
+	x = -1;
+	while (++x, matrix[x])
+	{
+		free(matrix[x]);
+		matrix[x] = (void *)0;
+	}
+	free(matrix);
+	matrix = (void *)0;
 }
 
-int	ft_strlen(char *str)
+int	ft_matrixlen(char **matrix)
 {
-	int	i;
+	int	ecx;
 
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
+	ecx = 0;
+	while (matrix[ecx])
+		++ecx;
+	return (ecx);
+}
+
+char	**ft_matrixdup(char **matrix)
+{
+	int		x;
+	int		y;
+	char	**result;
+
+	y = 0;
+	while (matrix[y])
+		++y;
+	result = (char **)malloc((y + 1) * sizeof(char *));
+	if (!result)
+		return ((void *)0);
+	y = -1;
+	while (++y, matrix[y])
+	{
+		result[y] = (char *)malloc(sizeof(char) * (ft_strlen(matrix[y])));
+		if (!result[y])
+			ft_freematrix(result);
+		if (!result[y])
+			return ((void *)0);
+		x = -1;
+		while (++x, matrix[y][x])
+			result[y][x] = matrix[y][x];
+		result[y][x] = 0;
+	}
+	result[y] = (void *)0;
+	return (result);
 }

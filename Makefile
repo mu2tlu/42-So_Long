@@ -2,8 +2,8 @@ CC			=	cc
 
 LIBS		=	libs
 INCS		=	-I incs -I $(LIBS)/libft -I $(LIBS)/mlx 
-LIBR		=	-L $(LIBS)/libft -l ft -L $(LIBS)/mlx -l mlx -framework OpenGL -framework AppKit
-
+LIBR		=	-L $(LIBS)/libft -l ft \
+				-L $(LIBS)/mlx -l mlx -framework OpenGL -framework AppKit
 
 SRCDIR		=	src
 SRC			=	$(SRCDIR)/draw.c \
@@ -14,29 +14,30 @@ SRC			=	$(SRCDIR)/draw.c \
 				$(SRCDIR)/map_validation.c \
 				$(SRCDIR)/path_finding.c \
 				$(SRCDIR)/utils.c
+
 B_SRCDIR	=	src_bonus
 BONUS_SRC	=	$(B_SRCDIR)/draw_bonus.c \
 				$(B_SRCDIR)/game_bonus.c \
+				$(B_SRCDIR)/input_bonus.c \
+				$(B_SRCDIR)/main_bonus.c \
 				$(B_SRCDIR)/map_construction_bonus.c \
 				$(B_SRCDIR)/map_validation_bonus.c \
-				$(B_SRCDIR)/utils_bonus.c \
-				$(B_SRCDIR)/input_bonus.c \
-				$(B_SRCDIR)/utils2_bonus.c \
-				$(B_SRCDIR)/path_finding_bonus.c
+				$(B_SRCDIR)/path_finding_bonus.c \
+				$(B_SRCDIR)/utils_bonus.c
 
 NAME		=	so_long
-bonus		=	so_long_bonus
+BONUS_NAME	=	so_long_bonus
 CFLAGS		=	-Wall -Wextra -Werror $(INCS)
 OBJ			= 	$(SRC:.c=.o)
 B_OBJ		= 	$(BONUS_SRC:.c=.o)
 
-all: depend $(NAME) #$(BONUS_NAME) 
+all: depend $(NAME) bonus
 
 $(NAME): $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(LIBR)
 
 bonus: $(B_OBJ)
-	$(CC) $(CFLAGS) $(B_OBJ) -o $(bonus) $(LIBR)
+	$(CC) $(CFLAGS) $(B_OBJ) -o $(BONUS_NAME) $(LIBR)
 
 depend:		
 	make -C $(LIBS)/libft	&> /dev/null
@@ -45,14 +46,16 @@ depend:
 clean:
 	make -C $(LIBS)/mlx clean
 	make -C $(LIBS)/libft clean
-	rm -f $(OBJ) #$(B_OBJ)
+	rm -f $(OBJ) 
+	rm -f $(B_OBJ)
 
 fclean: clean
-	rm -f $(NAME) #$(BONUS_NAME)
+	rm -f $(NAME) 
+	rm -f $(BONUS_NAME)
 
 re: fclean all
 	
 norminette:
 	norminette
 
-.PHONY: clean fclean re all norminette
+.PHONY: clean fclean re all norminette bonus

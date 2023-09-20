@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input_bonus.c                                      :+:      :+:    :+:   */
+/*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mumutlu <mumutlu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/14 18:09:37 by mumutlu           #+#    #+#             */
-/*   Updated: 2023/09/14 18:09:38 by mumutlu          ###   ########.fr       */
+/*   Created: 2023/09/14 18:07:30 by mumutlu           #+#    #+#             */
+/*   Updated: 2023/09/20 14:55:41 by mumutlu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-#include "../mlx/mlx.h"
+#include "mlx.h"
 #include <unistd.h>
 #include <stdlib.h>
 
@@ -28,7 +28,7 @@ static void	ft_unsigned(unsigned int a)
 	write(1, &"0123456789"[a % 10], 1);
 }
 
-static int	player_register_movement(int dir, t_game *game)
+static int	player_register_movement(int dir, t_game game)
 {
 	if (dir == KEY_W)
 		game->player_y--;
@@ -41,7 +41,7 @@ static int	player_register_movement(int dir, t_game *game)
 	return (1);
 }
 
-static int	player_register_event(int movement, t_game *game)
+static int	player_register_event(int movement, t_game game)
 {
 	if (!movement)
 		return (0);
@@ -58,25 +58,25 @@ static int	player_register_event(int movement, t_game *game)
 	return (0);
 }
 
-int	game_exit(t_game *game)
+int	game_exit(t_game game)
 {
-	int	i;
-
-	i = -1;
-	while (++i < game->map_height)
-		free(game->map[i]);
-	free(game->map);
-	mlx_destroy_image(game->mlx, game->dipper_sprite);
-	mlx_destroy_image(game->mlx, game->exit_sprite);
-	mlx_destroy_image(game->mlx, game->coin_sprite);
-	mlx_destroy_image(game->mlx, game->wall_sprite);
-	mlx_destroy_image(game->mlx, game->floor_sprite);
-	mlx_destroy_window(game->mlx, game->mlx_win);
-	free(game);
+	ft_freematrix(game->map);
+	if (game->dipper_sprite)
+		mlx_destroy_image(game->mlx, game->dipper_sprite);
+	if (game->exit_sprite)
+		mlx_destroy_image(game->mlx, game->exit_sprite);
+	if (game->coin_sprite)
+		mlx_destroy_image(game->mlx, game->coin_sprite);
+	if (game->wall_sprite)
+		mlx_destroy_image(game->mlx, game->wall_sprite);
+	if (game->floor_sprite)
+		mlx_destroy_image(game->mlx, game->floor_sprite);
+	if (game->mlx_win)
+		mlx_destroy_window(game->mlx, game->mlx_win);
 	exit(0);
 }
 
-int	key_down(int keycode, t_game *game)
+int	key_down(int keycode, t_game game)
 {
 	int	movement;
 

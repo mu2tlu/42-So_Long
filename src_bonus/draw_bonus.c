@@ -5,28 +5,25 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mumutlu <mumutlu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/14 18:09:26 by mumutlu           #+#    #+#             */
-/*   Updated: 2023/09/14 18:09:27 by mumutlu          ###   ########.fr       */
+/*   Created: 2023/09/14 18:07:10 by mumutlu           #+#    #+#             */
+/*   Updated: 2023/09/20 16:29:08 by mumutlu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "mlx.h"
 #include "so_long.h"
-#include "../mlx/mlx.h"
-#include <stdlib.h>
+#include "libft.h"
 
-static void	draw_data(t_game *sl);
-static void	render_map(t_game *game);
-
-static void	render_map(t_game *game)
+static void	render_map(t_game game)
 {
 	int	x;
 	int	y;
 
 	y = 0;
-	while (y < game->map_height)
+	while (game->map[y])
 	{
 		x = 0;
-		while (x < game->map_width)
+		while (game->map[y][x])
 		{
 			if (game->map[y][x] == '1')
 				mlx_put_image_to_window(game->mlx, game->mlx_win,
@@ -46,7 +43,7 @@ static void	render_map(t_game *game)
 	}
 }
 
-static void	draw_data(t_game *sl)
+static void	draw_data(t_game sl)
 {
 	char	*str;
 
@@ -57,7 +54,7 @@ static void	draw_data(t_game *sl)
 	free(str);
 }
 
-int	render(t_game *game)
+int	render(t_game game)
 {
 	mlx_clear_window(game->mlx, game->mlx_win);
 	render_map(game);

@@ -1,39 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils2_bonus.c                                     :+:      :+:    :+:   */
+/*   map_construction.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mumutlu <mumutlu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/14 18:10:15 by mumutlu           #+#    #+#             */
-/*   Updated: 2023/09/14 18:10:16 by mumutlu          ###   ########.fr       */
+/*   Created: 2023/09/14 18:07:42 by mumutlu           #+#    #+#             */
+/*   Updated: 2023/09/19 16:12:38 by mumutlu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+#include "libft.h"
 #include <stdlib.h>
 
-char	*ft_itoa(int number)
+char	**map_constructor(int fd)
 {
-	char	*result;
+	char	*line;
+	char	*temp;
+	char	*map_out;
+	char	**result;
 
-	int (n) = number;
-	int (len) = 0;
-	if (number < 0)
-		len ++;
-	while (n)
+	temp = get_next_line(fd);
+	line = malloc(2 * sizeof(char));
+	while (!!temp)
 	{
-		n /= 10;
-		len ++;
+		map_out = ft_strjoin(line, temp);
+		if (line)
+			free(line);
+		free(temp);
+		temp = get_next_line(fd);
+		if (map_out)
+			line = ft_strdup(map_out);
+		free(map_out);
+		map_out = (void *)0;
 	}
-	result = (char *)malloc(sizeof(char) * len + 1);
-	if (!result)
-		return (NULL);
-	result[len] = '\0';
-	while (number)
-	{
-		result[--len] = number % 10 + '0';
-		number /= 10;
-	}
+	free(temp);
+	temp = (void *)0;
+	result = ft_split(line, '\n');
+	free(line);
 	return (result);
 }

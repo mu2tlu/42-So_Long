@@ -1,88 +1,67 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   path_finding_bonus.c                               :+:      :+:    :+:   */
+/*   path_finding.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mumutlu <mumutlu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/14 18:10:05 by mumutlu           #+#    #+#             */
-/*   Updated: 2023/09/14 18:10:06 by mumutlu          ###   ########.fr       */
+/*   Created: 2023/09/14 18:08:00 by mumutlu           #+#    #+#             */
+/*   Updated: 2023/09/19 16:13:24 by mumutlu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 #include <stdlib.h>
 
-void	free_map(char **map, size_t height)
+char
+	check_objects(char **map)
 {
-	size_t	i;
+	int		x;
+	int		y;
+	char	c;
 
-	i = 0;
-	while (i < height)
+	y = -1;
+	while (++y, map[y])
 	{
-		free(map[i]);
-		i++;
+		x = -1;
+		while (++x, map[y][x])
+		{
+			c = map[y][x];
+			if (c == 'C' || c == 'E' || c == 'P')
+				return (1);
+		}
 	}
-	free(map);
-}
-
-static char	*ft_strdup(char *a)
-{
-	int		i;
-	char	*ret;
-
-	ret = malloc(sizeof(char) * ft_strlen(a));
-	if (!ret)
-		return (NULL);
-	i = -1;
-	while (a[++i])
-		ret[i] = a[i];
-	return (ret);
-}
-
-static int	check_path(t_game *temp, size_t y, size_t x)
-{
-	if (temp->map[y][x] == '1')
-		return (0);
-	if (temp->map[y][x] == 'C')
-		temp->coins--;
-	if (temp->map[y][x] == 'E')
-		temp->exit_is_possible = 1;
-	temp->map[y][x] = '1';
-	if (check_path(temp, y + 1, x))
-		return (1);
-	if (check_path(temp, y - 1, x))
-		return (1);
-	if (check_path(temp, y, x + 1))
-		return (1);
-	if (check_path(temp, y, x - 1))
-		return (1);
 	return (0);
 }
 
-int	flood_fill(t_game *game)
+static void	check_path(char **map, size_t y, size_t x)
 {
-	t_game	temp;
+	map[y][x] = '1';
+	if (map[y + 1][x] != '1')
+		check_path(map, y + 1, x);
+	if (map[y - 1][x] != '1')
+		check_path(map, y - 1, x);
+	if (map[y][x + 1] != '1')
+		check_path(map, y, x + 1);
+	if (map[y][x - 1] != '1')
+		check_path(map, y, x - 1);
+}
+
+int	flood_fill(t_game game)
+{
+	char	**map;
 	int		i;
 
-	temp.map_height = game->map_height;
-	temp.map_width = game->map_width;
-	temp.coins = game->coins;
-	temp.player_x = game->player_x;
-	temp.player_y = game->player_y;
-	temp.exit_is_possible = 0;
-	temp.map = (char **)malloc(temp.map_height * sizeof(char *));
-	if (!temp.map)
+	map = ft_matrixdup(game->map);
+	if (!map)
 		return (1);
 	i = -1;
-	while (++i < temp.map_height)
-		temp.map[i] = ft_strdup(game->map[i]);
-	check_path(&temp, temp.player_y, temp.player_x);
-	if (!(temp.exit_is_possible == 1 && temp.coins == 0))
+	check_path(map, game->player_y, game->player_x);
+	if (check_objects(map))
 	{
-		free_map(temp.map, temp.map_height);
+		ft_freematrix(map);
 		return (1);
 	}
-	free_map(temp.map, temp.map_height);
+	ft_freematrix(map);
 	return (0);
 }

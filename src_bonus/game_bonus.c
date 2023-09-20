@@ -1,22 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   game_bonus.c                                       :+:      :+:    :+:   */
+/*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mumutlu <mumutlu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/14 18:09:32 by mumutlu           #+#    #+#             */
-/*   Updated: 2023/09/14 18:09:33 by mumutlu          ###   ########.fr       */
+/*   Created: 2023/09/14 18:07:19 by mumutlu           #+#    #+#             */
+/*   Updated: 2023/09/20 14:46:18 by mumutlu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-#include "../mlx/mlx.h"
+#include "mlx.h"
+#include "libft.h"
 #include <stdlib.h>
 #include <unistd.h>
 #include <fcntl.h>
 
-void	load_sprite(t_game *game)
+void	load_sprite(t_game game)
 {
 	int	tmp_x;
 	int	tmp_y;
@@ -31,6 +32,12 @@ void	load_sprite(t_game *game)
 			"./res/coin.xpm", &tmp_x, &tmp_y);
 	game->exit_sprite = mlx_xpm_file_to_image(game->mlx,
 			"./res/exit.xpm", &tmp_x, &tmp_y);
+	if (!(game->dipper_sprite
+			&& game->wall_sprite && game->wall_sprite
+			&& game->coin_sprite && game->exit_sprite))
+	{
+		game_exit(game);
+	}
 }
 
 static int	filename_check(char *str)
@@ -47,42 +54,42 @@ static int	filename_check(char *str)
 	return (1);
 }
 
-static t_game	*game_init(void)
+static void	game_init(t_game game)
 {
-	t_game	*game;
-
-	game = (t_game *)malloc(sizeof(t_game));
+	game->dipper_sprite = NULL;
+	game->wall_sprite = NULL;
+	game->floor_sprite = NULL;
+	game->coin_sprite = NULL;
+	game->exit_sprite = NULL;
 	game->coins = 0;
 	game->exit = 0;
 	game->ply = 0;
 	game->moves = 0;
-	return (game);
 }
 
 void	start_game(char *map_name)
 {
-	t_game	*game;
-	int		fd;
+	struct s_game	game;
+	int				fd;
 
 	if (filename_check(map_name))
 		return ;
-	game = game_init();
+	game_init(&game);
 	fd = open(map_name, O_RDONLY);
-	game->map = map_constractor(game, fd);
+	game.map = map_constructor(fd);
 	close(fd);
-	if (map_validation(game))
+	if (map_validation(&game))
 	{
 		write(1, "ERROR\n", 6);
-		free_map(game->map, game->map_height);
-		free(game);
+		ft_freematrix(game.map);
 		exit(1);
 	}
-	game->mlx = mlx_init();
-	game->mlx_win = mlx_new_window(game->mlx, game->map_width * PIXEL,
-			game->map_height * PIXEL, "so_long");
-	load_sprite(game);
-	mlx_hook(game->mlx_win, 2, 1L << 0, key_down, game);
-	mlx_hook(game->mlx_win, 17, 0L << 0, game_exit, game);
-	mlx_loop_hook(game->mlx, render, game);
-	mlx_loop(game->mlx);
+	game.mlx = mlx_init();
+	game.mlx_win = mlx_new_window(game.mlx, ft_strlen(game.map[0]) * PIXEL,
+			ft_matrixlen(game.map) * PIXEL, "so_long");
+	load_sprite(&game);
+	mlx_hook(game.mlx_win, 2, 1L << 0, key_down, &game);
+	mlx_hook(game.mlx_win, 17, 0L << 0, game_exit, &game);
+	mlx_loop_hook(game.mlx, render, &game);
+	mlx_loop(game.mlx);
 }
