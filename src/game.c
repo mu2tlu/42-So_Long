@@ -6,7 +6,7 @@
 /*   By: mumutlu <mumutlu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:07:19 by mumutlu           #+#    #+#             */
-/*   Updated: 2023/09/19 16:11:55 by mumutlu          ###   ########.fr       */
+/*   Updated: 2023/09/20 14:46:18 by mumutlu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,12 @@ void	load_sprite(t_game game)
 			"./res/coin.xpm", &tmp_x, &tmp_y);
 	game->exit_sprite = mlx_xpm_file_to_image(game->mlx,
 			"./res/exit.xpm", &tmp_x, &tmp_y);
+	if (!(game->dipper_sprite
+			&& game->wall_sprite && game->wall_sprite
+			&& game->coin_sprite && game->exit_sprite))
+	{
+		game_exit(game);
+	}
 }
 
 static int	filename_check(char *str)
@@ -50,6 +56,11 @@ static int	filename_check(char *str)
 
 static void	game_init(t_game game)
 {
+	game->dipper_sprite = NULL;
+	game->wall_sprite = NULL;
+	game->floor_sprite = NULL;
+	game->coin_sprite = NULL;
+	game->exit_sprite = NULL;
 	game->coins = 0;
 	game->exit = 0;
 	game->ply = 0;

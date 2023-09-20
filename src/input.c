@@ -6,7 +6,7 @@
 /*   By: mumutlu <mumutlu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:07:30 by mumutlu           #+#    #+#             */
-/*   Updated: 2023/09/19 16:12:20 by mumutlu          ###   ########.fr       */
+/*   Updated: 2023/09/20 14:55:41 by mumutlu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,16 +60,19 @@ static int	player_register_event(int movement, t_game game)
 
 int	game_exit(t_game game)
 {
-	int	i;
-
-	i = -1;
 	ft_freematrix(game->map);
-	mlx_destroy_image(game->mlx, game->dipper_sprite);
-	mlx_destroy_image(game->mlx, game->exit_sprite);
-	mlx_destroy_image(game->mlx, game->coin_sprite);
-	mlx_destroy_image(game->mlx, game->wall_sprite);
-	mlx_destroy_image(game->mlx, game->floor_sprite);
-	mlx_destroy_window(game->mlx, game->mlx_win);
+	if (game->dipper_sprite)
+		mlx_destroy_image(game->mlx, game->dipper_sprite);
+	if (game->exit_sprite)
+		mlx_destroy_image(game->mlx, game->exit_sprite);
+	if (game->coin_sprite)
+		mlx_destroy_image(game->mlx, game->coin_sprite);
+	if (game->wall_sprite)
+		mlx_destroy_image(game->mlx, game->wall_sprite);
+	if (game->floor_sprite)
+		mlx_destroy_image(game->mlx, game->floor_sprite);
+	if (game->mlx_win)
+		mlx_destroy_window(game->mlx, game->mlx_win);
 	exit(0);
 }
 
