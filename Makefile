@@ -55,7 +55,7 @@ fclean: clean
 	rm -f $(NAME) 
 	rm -f $(BONUS_NAME)
 
-re: fclean
+re: fclean all
 	
 norminette:
 	norminette
