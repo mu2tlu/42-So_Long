@@ -6,7 +6,7 @@
 /*   By: mumutlu <mumutlu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:07:42 by mumutlu           #+#    #+#             */
-/*   Updated: 2023/09/21 15:49:59 by mumutlu          ###   ########.fr       */
+/*   Updated: 2023/09/21 22:30:53 by mumutlu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ static char	*map_joinner(int fd)
 	char	*line;
 
 	temp = get_next_line(fd);
+	if (temp == NULL)
+		return (NULL);
 	line = (char [2]){0, 0};
 	while (!!temp)
 	{
@@ -33,12 +35,10 @@ static char	*map_joinner(int fd)
 		if (!!map_out)
 			line = ft_strdup(map_out);
 		if (!!map_out)
-			free(map_out);
-		map_out = (void *)0;
+			map_out = (free(map_out), (void *)0);
 	}
 	if (temp)
-		free(temp);
-	temp = (void *)0;
+		temp = (free(temp), (void *)0);
 	return (line);
 }
 
@@ -71,6 +71,8 @@ char	**map_constructor(int fd)
 	char	**result;
 
 	line = map_joinner(fd);
+	if (line == NULL)
+		return (NULL);
 	if (check_breaker(line))
 	{
 		free(line);

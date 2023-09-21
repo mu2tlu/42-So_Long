@@ -6,7 +6,7 @@
 /*   By: mumutlu <mumutlu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:05:57 by mumutlu           #+#    #+#             */
-/*   Updated: 2023/09/21 21:28:29 by mumutlu          ###   ########.fr       */
+/*   Updated: 2023/09/21 21:54:30 by mumutlu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define SO_LONG_H
 
 # define PIXEL 64
+#include <stdio.h>
 
 typedef struct s_game
 {

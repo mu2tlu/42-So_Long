@@ -6,7 +6,7 @@
 /*   By: mumutlu <mumutlu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:07:19 by mumutlu           #+#    #+#             */
-/*   Updated: 2023/09/21 21:48:52 by mumutlu          ###   ########.fr       */
+/*   Updated: 2023/09/21 22:12:35 by mumutlu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,12 @@ void	start_game(char *map_name)
 	int				fd;
 
 	fd = open(map_name, O_RDONLY);
-	game.map = map_constructor(fd);
-	if (fd == -1 && (close(fd) || 1))
+	if (fd == -1)
 		exit((write(2, "Error\nFile could not be opened\n", 31), 1));
+	game.map = map_constructor(fd);
 	close(fd);
-	if (!game.map)
-		exit((write(2, "Error\nMap not loaded\n", 7), 1));
+	if (!game.map && game.map == NULL)
+		exit((write(2, "Error\nMap not loaded\n", 21), 1));
 	game_init(&game);
 	if (map_validation(&game))
 	{
