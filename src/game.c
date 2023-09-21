@@ -6,7 +6,7 @@
 /*   By: mumutlu <mumutlu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:07:19 by mumutlu           #+#    #+#             */
-/*   Updated: 2023/09/20 14:46:18 by mumutlu          ###   ########.fr       */
+/*   Updated: 2023/09/21 15:41:58 by mumutlu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	load_sprite(t_game game)
 			&& game->wall_sprite && game->wall_sprite
 			&& game->coin_sprite && game->exit_sprite))
 	{
+		write(1, "ERROR\n", 7);
 		game_exit(game);
 	}
 }
@@ -50,7 +51,7 @@ static int	filename_check(char *str)
 	{
 		return (0);
 	}
-	write(1, "ERROR\n", 6);
+	write(1, "ERROR\n", 7);
 	return (1);
 }
 
@@ -74,13 +75,15 @@ void	start_game(char *map_name)
 
 	if (filename_check(map_name))
 		return ;
-	game_init(&game);
 	fd = open(map_name, O_RDONLY);
 	game.map = map_constructor(fd);
 	close(fd);
+	if (!game.map)
+		exit((write(1, "ERROR\n", 7), 1));
+	game_init(&game);
 	if (map_validation(&game))
 	{
-		write(1, "ERROR\n", 6);
+		write(1, "ERROR\n", 7);
 		ft_freematrix(game.map);
 		exit(1);
 	}
