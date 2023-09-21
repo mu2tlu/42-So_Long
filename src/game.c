@@ -6,14 +6,13 @@
 /*   By: mumutlu <mumutlu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:07:19 by mumutlu           #+#    #+#             */
-/*   Updated: 2023/09/21 22:43:57 by mumutlu          ###   ########.fr       */
+/*   Updated: 2023/09/22 02:18:26 by mumutlu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 #include "mlx.h"
 #include "libft.h"
-#include <stdlib.h>
 #include <unistd.h>
 #include <fcntl.h>
 
