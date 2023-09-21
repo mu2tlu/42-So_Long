@@ -6,15 +6,14 @@
 /*   By: mumutlu <mumutlu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:08:00 by mumutlu           #+#    #+#             */
-/*   Updated: 2023/09/19 16:13:24 by mumutlu          ###   ########.fr       */
+/*   Updated: 2023/09/21 16:24:24 by mumutlu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 #include <stdlib.h>
 
-char
-	check_objects(char **map)
+static char	check_objects(char **map)
 {
 	int		x;
 	int		y;

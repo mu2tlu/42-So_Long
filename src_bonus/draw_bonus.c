@@ -6,13 +6,12 @@
 /*   By: mumutlu <mumutlu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:07:10 by mumutlu           #+#    #+#             */
-/*   Updated: 2023/09/20 16:29:08 by mumutlu          ###   ########.fr       */
+/*   Updated: 2023/09/21 23:45:03 by mumutlu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mlx.h"
 #include "so_long.h"
-#include "libft.h"
 
 static void	render_map(t_game game)
 {
@@ -58,7 +57,6 @@ int	render(t_game game)
 {
 	mlx_clear_window(game->mlx, game->mlx_win);
 	render_map(game);
-	draw_data(game);
 	mlx_put_image_to_window(game->mlx, game->mlx_win,
 		game->dipper_sprite, game->player_x * PIXEL, game->player_y * PIXEL);
 	return (0);

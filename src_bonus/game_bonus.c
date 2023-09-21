@@ -6,7 +6,7 @@
 /*   By: mumutlu <mumutlu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:07:19 by mumutlu           #+#    #+#             */
-/*   Updated: 2023/09/20 14:46:18 by mumutlu          ###   ########.fr       */
+/*   Updated: 2023/09/21 22:43:57 by mumutlu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,22 +36,9 @@ void	load_sprite(t_game game)
 			&& game->wall_sprite && game->wall_sprite
 			&& game->coin_sprite && game->exit_sprite))
 	{
+		write(2, "Error\n.xpm File extension is not correct\n", 41);
 		game_exit(game);
 	}
-}
-
-static int	filename_check(char *str)
-{
-	int	i;
-
-	i = ft_strlen(str) - 1;
-	if (str[i] == 'r' && str[i - 1] == 'e'
-		&& str[i - 2] == 'b' && str[i - 3] == '.')
-	{
-		return (0);
-	}
-	write(1, "ERROR\n", 6);
-	return (1);
 }
 
 static void	game_init(t_game game)
@@ -72,15 +59,17 @@ void	start_game(char *map_name)
 	struct s_game	game;
 	int				fd;
 
-	if (filename_check(map_name))
-		return ;
-	game_init(&game);
 	fd = open(map_name, O_RDONLY);
+	if (fd == -1)
+		exit((write(2, "Error\nFile could not be opened\n", 31), 1));
 	game.map = map_constructor(fd);
 	close(fd);
+	if (!game.map && game.map == NULL)
+		exit((write(2, "Error\nMap not loaded\n", 21), 1));
+	game_init(&game);
 	if (map_validation(&game))
 	{
-		write(1, "ERROR\n", 6);
+		write(2, "Error\nMap not suitable\n", 23);
 		ft_freematrix(game.map);
 		exit(1);
 	}

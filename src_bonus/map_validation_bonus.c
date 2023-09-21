@@ -6,14 +6,14 @@
 /*   By: mumutlu <mumutlu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:07:53 by mumutlu           #+#    #+#             */
-/*   Updated: 2023/09/19 16:13:13 by mumutlu          ###   ########.fr       */
+/*   Updated: 2023/09/21 16:23:47 by mumutlu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 #include "libft.h"
 
-int	is_ret(t_game sl)
+static int	is_ret(t_game sl)
 {
 	char	**map;
 	int		i;
@@ -31,7 +31,7 @@ int	is_ret(t_game sl)
 	return (0);
 }
 
-int	is_wall(char **map, int x, int y)
+static int	is_wall(char **map, int x, int y)
 {
 	int	i;
 	int	j;
@@ -55,7 +55,7 @@ int	is_wall(char **map, int x, int y)
 	return (0);
 }
 
-int	is_pec(t_game sl)
+static int	is_pec(t_game sl)
 {
 	int	i;
 	int	j;
@@ -81,7 +81,7 @@ int	is_pec(t_game sl)
 	return (0);
 }
 
-int	is_chr(t_game sl)
+static int	is_chr(t_game sl)
 {
 	int	i;
 	int	j;
