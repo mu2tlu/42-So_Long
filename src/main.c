@@ -6,7 +6,7 @@
 /*   By: mumutlu <mumutlu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:07:35 by mumutlu           #+#    #+#             */
-/*   Updated: 2023/09/21 21:51:04 by mumutlu          ###   ########.fr       */
+/*   Updated: 2023/09/21 22:44:52 by mumutlu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	filename_check(char *str)
 	{
 		return (1);
 	}
-	write(2, "ERROR\nFile extension is not correct\n", 36);
+	write(2, "Error\nFile extension is not correct\n", 36);
 	return (0);
 }
 

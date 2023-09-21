@@ -6,7 +6,7 @@
 /*   By: mumutlu <mumutlu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:07:19 by mumutlu           #+#    #+#             */
-/*   Updated: 2023/09/21 22:12:35 by mumutlu          ###   ########.fr       */
+/*   Updated: 2023/09/21 22:43:57 by mumutlu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	load_sprite(t_game game)
 			&& game->wall_sprite && game->wall_sprite
 			&& game->coin_sprite && game->exit_sprite))
 	{
-		write(1, "ERROR\n", 7);
+		write(2, "Error\n.xpm File extension is not correct\n", 41);
 		game_exit(game);
 	}
 }
