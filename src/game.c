@@ -6,7 +6,7 @@
 /*   By: mumutlu <mumutlu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:07:19 by mumutlu           #+#    #+#             */
-/*   Updated: 2023/09/21 15:41:58 by mumutlu          ###   ########.fr       */
+/*   Updated: 2023/09/21 21:48:52 by mumutlu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,20 +41,6 @@ void	load_sprite(t_game game)
 	}
 }
 
-static int	filename_check(char *str)
-{
-	int	i;
-
-	i = ft_strlen(str) - 1;
-	if (str[i] == 'r' && str[i - 1] == 'e'
-		&& str[i - 2] == 'b' && str[i - 3] == '.')
-	{
-		return (0);
-	}
-	write(1, "ERROR\n", 7);
-	return (1);
-}
-
 static void	game_init(t_game game)
 {
 	game->dipper_sprite = NULL;
@@ -73,17 +59,17 @@ void	start_game(char *map_name)
 	struct s_game	game;
 	int				fd;
 
-	if (filename_check(map_name))
-		return ;
 	fd = open(map_name, O_RDONLY);
 	game.map = map_constructor(fd);
+	if (fd == -1 && (close(fd) || 1))
+		exit((write(2, "Error\nFile could not be opened\n", 31), 1));
 	close(fd);
 	if (!game.map)
-		exit((write(1, "ERROR\n", 7), 1));
+		exit((write(2, "Error\nMap not loaded\n", 7), 1));
 	game_init(&game);
 	if (map_validation(&game))
 	{
-		write(1, "ERROR\n", 7);
+		write(2, "Error\nMap not suitable\n", 23);
 		ft_freematrix(game.map);
 		exit(1);
 	}
