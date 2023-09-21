@@ -6,11 +6,12 @@
 /*   By: mumutlu <mumutlu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:07:35 by mumutlu           #+#    #+#             */
-/*   Updated: 2023/09/21 21:39:09 by mumutlu          ###   ########.fr       */
+/*   Updated: 2023/09/21 21:51:04 by mumutlu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+#include "libft.h"
 #include "unistd.h"
 
 static int	filename_check(char *str)
