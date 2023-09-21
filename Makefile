@@ -57,7 +57,7 @@ fclean: clean
 
 re: fclean all
 	
-norminette:
+norminette: $(SRCDIR) $(B_SRCDIR)
 	norminette
 
 .PHONY: clean fclean re all norminette bonus
