@@ -46,8 +46,8 @@ depend:
 	make -C $(LIBS)/mlx		&> /dev/null
 
 clean:
-	make -C $(LIBS)/mlx clean
-	make -C $(LIBS)/libft clean
+	make -C $(LIBS)/mlx fclean
+	make -C $(LIBS)/libft fclean
 	rm -f $(OBJ) 
 	rm -f $(B_OBJ)
 
