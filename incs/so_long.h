@@ -6,14 +6,12 @@
 /*   By: mumutlu <mumutlu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:05:57 by mumutlu           #+#    #+#             */
-/*   Updated: 2023/09/21 15:55:03 by mumutlu          ###   ########.fr       */
+/*   Updated: 2023/09/21 16:26:21 by mumutlu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
-
-# include <stdlib.h>
 
 # define PIXEL 64
 
@@ -39,12 +37,13 @@ typedef struct s_game
 	int				coins;
 
 	int				exit_is_possible;
-}	*t_game;
+}					*t_game;
 
+void				load_sprite(t_game game);
 void				start_game(char *map_name);
 
-int					key_down(int keycode, t_game game);
 int					game_exit(t_game game);
+int					key_down(int keycode, t_game game);
 
 int					render(t_game game);
 
