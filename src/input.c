@@ -6,7 +6,7 @@
 /*   By: mumutlu <mumutlu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:07:30 by mumutlu           #+#    #+#             */
-/*   Updated: 2023/09/20 14:55:41 by mumutlu          ###   ########.fr       */
+/*   Updated: 2023/09/22 02:19:54 by mumutlu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,6 @@
 #include "mlx.h"
 #include <unistd.h>
 #include <stdlib.h>
-
-#define KEY_W 13
-#define KEY_A 0
-#define KEY_S 1
-#define KEY_D 2
-#define KEY_ESC 53
 
 static void	ft_unsigned(unsigned int a)
 {
