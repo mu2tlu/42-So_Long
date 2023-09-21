@@ -6,15 +6,20 @@
 /*   By: mumutlu <mumutlu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:05:57 by mumutlu           #+#    #+#             */
-/*   Updated: 2023/09/21 21:54:30 by mumutlu          ###   ########.fr       */
+/*   Updated: 2023/09/22 02:19:38 by mumutlu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
+# define KEY_W 13
+# define KEY_A 0
+# define KEY_S 1
+# define KEY_D 2
+# define KEY_ESC 53
+
 # define PIXEL 64
-#include <stdio.h>
 
 typedef struct s_game
 {
