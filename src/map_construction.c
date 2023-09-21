@@ -6,33 +6,13 @@
 /*   By: mumutlu <mumutlu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:07:42 by mumutlu           #+#    #+#             */
-/*   Updated: 2023/09/21 15:43:03 by mumutlu          ###   ########.fr       */
+/*   Updated: 2023/09/21 15:49:59 by mumutlu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 #include "libft.h"
 #include <stdlib.h>
-
-static char	*map_joinner(int fd);
-static int	check_breaker(char *line);
-
-char	**map_constructor(int fd)
-{
-	char	*line;
-	char	**result;
-
-	line = map_joinner(fd);
-	if (check_breaker(line))
-	{
-		free(line);
-		return ((void *)0);
-	}
-	result = ft_split(line, '\n');
-	if (line)
-		free(line);
-	return (result);
-}
 
 static char	*map_joinner(int fd)
 {
@@ -83,4 +63,21 @@ static int	check_breaker(char *line)
 		ecx += line_size;
 	}
 	return (0);
+}
+
+char	**map_constructor(int fd)
+{
+	char	*line;
+	char	**result;
+
+	line = map_joinner(fd);
+	if (check_breaker(line))
+	{
+		free(line);
+		return ((void *)0);
+	}
+	result = ft_split(line, '\n');
+	if (line)
+		free(line);
+	return (result);
 }
