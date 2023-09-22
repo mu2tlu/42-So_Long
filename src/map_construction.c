@@ -6,7 +6,7 @@
 /*   By: mumutlu <mumutlu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:07:42 by mumutlu           #+#    #+#             */
-/*   Updated: 2023/09/22 23:27:41 by mumutlu          ###   ########.fr       */
+/*   Updated: 2023/09/23 01:44:09 by mumutlu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,23 +49,26 @@ static int	check_breaker(char *line)
 	int		i;
 
 	len = (int)ft_strlen(line) - 1;
-	i = 0;
-	while (i < len && line[len] == '\n')
+	while (line[len] == '\n')
 	{
-		if (i == len - 1)
+		if (0 == len)
 			return (1);
 		len--;
 	}
+	i = 0;
+	while (line[i] == '\n')
+		i++;
 	while (i < len)
 	{
-		if (!(line[i] == '\n') && i + 1 != len)
+		if (i + 1 == len)
+			return (0);
+		else if (line[i] == '\n' && line[i + 1] == '\n')
 		{
-			if (line[len + 1] == '\n' || line[len + 1] == '\0')
-				return (0);
+			return (1);
 		}
 		i++;
 	}
-	return (1);
+	return (0);
 }
 
 char	**map_constructor(int fd)
