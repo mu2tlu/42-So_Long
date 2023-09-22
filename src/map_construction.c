@@ -6,13 +6,14 @@
 /*   By: mumutlu <mumutlu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:07:42 by mumutlu           #+#    #+#             */
-/*   Updated: 2023/09/21 22:30:53 by mumutlu          ###   ########.fr       */
+/*   Updated: 2023/09/22 23:27:41 by mumutlu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 #include "libft.h"
 #include <stdlib.h>
+#include <unistd.h>
 
 static char	*map_joinner(int fd)
 {
@@ -44,25 +45,27 @@ static char	*map_joinner(int fd)
 
 static int	check_breaker(char *line)
 {
-	register int	ecx;
-	register int	line_size;
-	register char	only_newline;
+	int		len;
+	int		i;
 
-	ecx = -1;
-	line_size = 0;
-	only_newline = 0;
-	while (++ecx, line[ecx])
+	len = (int)ft_strlen(line) - 1;
+	i = 0;
+	while (i < len && line[len] == '\n')
 	{
-		line_size = 0;
-		while (line[line_size + ecx] != '\n' && !!line[line_size + ecx])
-			++line_size;
-		if (line_size == 0)
-			only_newline = 1;
-		if (!!line_size && only_newline)
+		if (i == len - 1)
 			return (1);
-		ecx += line_size;
+		len--;
 	}
-	return (0);
+	while (i < len)
+	{
+		if (!(line[i] == '\n') && i + 1 != len)
+		{
+			if (line[len + 1] == '\n' || line[len + 1] == '\0')
+				return (0);
+		}
+		i++;
+	}
+	return (1);
 }
 
 char	**map_constructor(int fd)
@@ -76,7 +79,8 @@ char	**map_constructor(int fd)
 	if (check_breaker(line))
 	{
 		free(line);
-		return ((void *)0);
+		close(fd);
+		exit((write(2, "Error\nMap not up to standard\n", 29), 1));
 	}
 	result = ft_split(line, '\n');
 	if (line)
