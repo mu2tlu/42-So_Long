@@ -6,13 +6,14 @@
 /*   By: mumutlu <mumutlu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 02:07:58 by mumutlu           #+#    #+#             */
-/*   Updated: 2023/09/23 01:44:39 by mumutlu          ###   ########.fr       */
+/*   Updated: 2023/09/23 17:00:38 by mumutlu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 #include "libft.h"
 #include <stdlib.h>
+#include <unistd.h>
 
 static char	*map_joinner(int fd)
 {
