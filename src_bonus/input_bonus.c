@@ -21,13 +21,6 @@
 #define KEY_D 2
 #define KEY_ESC 53
 
-static void	ft_unsigned(unsigned int a)
-{
-	if (a >= 10)
-		ft_unsigned(a / 10);
-	write(1, &"0123456789"[a % 10], 1);
-}
-
 static int	player_register_movement(int dir, t_game game)
 {
 	if (dir == KEY_W)
@@ -53,8 +46,6 @@ static int	player_register_event(int movement, t_game game)
 	if (game->coins == 0 && game->map[game->player_y][game->player_x] == 'E')
 		game_exit(game);
 	game->moves++;
-	ft_unsigned(game->moves);
-	write(1, "\n", 1);
 	return (0);
 }
 
