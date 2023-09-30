@@ -49,12 +49,10 @@ static void	check_path(char **map, size_t y, size_t x)
 int	flood_fill(t_game game)
 {
 	char	**map;
-	int		i;
 
 	map = ft_matrixdup(game->map);
 	if (!map)
 		return (1);
-	i = -1;
 	check_path(map, game->player_y, game->player_x);
 	if (check_objects(map))
 	{
